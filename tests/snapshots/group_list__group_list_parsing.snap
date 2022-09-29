@@ -1,0 +1,26 @@
+---
+source: tests/group_list.rs
+expression: group_list
+---
+GroupList {
+    summaries: [
+        GroupListSummary {
+            comment_activity: Some(
+                2,
+            ),
+            description: Some(
+                "Test group with description.",
+            ),
+            name: "~test.description",
+            topic_activity: Some(
+                1,
+            ),
+        },
+        GroupListSummary {
+            comment_activity: None,
+            description: None,
+            name: "~test",
+            topic_activity: None,
+        },
+    ],
+}

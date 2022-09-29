@@ -1,0 +1,20 @@
+[package]
+name = "tildes-parser"
+description = "Consolidated parsing for Tildes.net HTML."
+repository = "https://git.bauke.xyz/Bauke/tildes-parser"
+license = "AGPL-3.0-or-later"
+version = "0.1.0"
+authors = ["Bauke <me@bauke.xyz>"]
+edition = "2021"
+
+[lib]
+path = "source/lib.rs"
+
+[dependencies]
+color-eyre = "^0.6.2"
+lazy_static = "^1.4.0"
+regex = "^1.6.0"
+scraper = "^0.13.0"
+
+[dev-dependencies]
+insta = "^1.21.0"
