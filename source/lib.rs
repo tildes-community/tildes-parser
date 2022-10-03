@@ -28,6 +28,6 @@ pub(crate) mod group;
 pub(crate) mod group_list;
 
 pub use {
-  group::Group,
+  group::{Group, GroupWikiLink},
   group_list::{GroupList, GroupListSummary},
 };
