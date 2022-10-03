@@ -21,7 +21,8 @@ pub fn select_first_element_text(
   parent
     .select(selector)
     .next()
-    .map(|element| element.text().collect())
+    .map(|element| element.text().collect::<String>())
+    .map(|text| text.trim().to_string())
 }
 
 /// Shorthand for creating a [`scraper::Selector`].
