@@ -13,6 +13,10 @@ lazy_static! {
   /// ```
   pub static ref DUPLICATE_WHITESPACE_RE: Regex = Regex::new(r"\s\s+").unwrap();
 
+  /// Regular expression for extracting group subscriber count.
+  pub static ref GROUP_SUBSCRIBERS_RE: Regex =
+    Regex::new(r"(?P<count>\d+) subscribers").unwrap();
+
   /// Regular expression for extracting group list activity text.
   pub static ref GROUP_LIST_ACTIVITY_RE: Regex = {
     Regex::new(concat!(

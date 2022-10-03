@@ -24,6 +24,10 @@ pub mod regexes;
 pub mod selectors;
 pub mod utilities;
 
+pub(crate) mod group;
 pub(crate) mod group_list;
 
-pub use group_list::{GroupList, GroupListSummary};
+pub use {
+  group::Group,
+  group_list::{GroupList, GroupListSummary},
+};

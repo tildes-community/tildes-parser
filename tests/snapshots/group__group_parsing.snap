@@ -1,0 +1,24 @@
+---
+source: tests/group.rs
+expression: group
+---
+Group {
+    description: Some(
+        "Group description.",
+    ),
+    name: "~group",
+    sub_groups: [
+        "~example.sub",
+    ],
+    subscribers: 12345,
+    wiki_links: [
+        GroupWikiLink {
+            name: "index",
+            url: "https://example.org/~example/wiki/index",
+        },
+        GroupWikiLink {
+            name: "Example Page",
+            url: "https://example.org/~example/wiki/example_page",
+        },
+    ],
+}
