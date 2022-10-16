@@ -30,5 +30,4 @@ pub(crate) mod group_list;
 pub use {
   group::{Group, GroupWikiLink},
   group_list::{GroupList, GroupListSummary},
-  scraper::Html,
 };
