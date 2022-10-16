@@ -23,7 +23,7 @@ lazy_static! {
   /// Selector for the group subscriber count.
   pub static ref GROUP_SUBSCRIBERS: Selector = selector(".group-subscription-count");
 
-  /// Selector for group wiki links.
+  /// Selector for sub groups.
   pub static ref GROUP_SUB_GROUP_LINKS: Selector = selector(r#"#sidebar .link-group"#);
 
   /// Selector for group wiki links.
