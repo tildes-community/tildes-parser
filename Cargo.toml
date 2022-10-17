@@ -12,6 +12,7 @@ path = "source/lib.rs"
 
 [dependencies]
 color-eyre = "^0.6.2"
+duplicate = "^0.4.1"
 lazy_static = "^1.4.0"
 regex = "^1.6.0"
 scraper = "^0.13.0"

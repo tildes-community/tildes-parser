@@ -1,11 +1,6 @@
 //! Parsing for `/~<group>`.
 
-use std::str::FromStr;
-
-use {
-  color_eyre::{eyre::Error, Result},
-  scraper::Html,
-};
+use {color_eyre::Result, scraper::Html};
 
 use crate::{
   regexes::GROUP_SUBSCRIBERS_RE,
@@ -45,15 +40,6 @@ pub struct GroupWikiLink {
 
   /// The URL to the wiki page.
   pub url: String,
-}
-
-impl FromStr for Group {
-  type Err = Error;
-
-  fn from_str(s: &str) -> Result<Self, Self::Err> {
-    let html = Html::parse_document(s);
-    Self::from_html(&html)
-  }
 }
 
 impl Group {

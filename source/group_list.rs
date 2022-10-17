@@ -1,11 +1,6 @@
 //! Parsing for [`/groups`](https://tildes.net/groups).
 
-use std::str::FromStr;
-
-use {
-  color_eyre::{eyre::Error, Result},
-  scraper::Html,
-};
+use {color_eyre::Result, scraper::Html};
 
 use crate::{
   regexes::{DUPLICATE_WHITESPACE_RE, GROUP_LIST_ACTIVITY_RE},
@@ -35,15 +30,6 @@ pub struct GroupListSummary {
 
   /// The approximate daily topic activity.
   pub topic_activity: Option<i32>,
-}
-
-impl FromStr for GroupList {
-  type Err = Error;
-
-  fn from_str(s: &str) -> Result<Self, Self::Err> {
-    let html = Html::parse_document(s);
-    Self::from_html(&html)
-  }
 }
 
 impl GroupList {
