@@ -16,6 +16,6 @@ impl FromStr for _Struct {
 
   fn from_str(s: &str) -> Result<Self, Self::Err> {
     let html = Html::parse_document(s);
-    _Struct::from_html(&html)
+    Self::from_html(&html)
   }
 }
