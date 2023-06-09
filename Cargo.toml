@@ -11,11 +11,11 @@ edition = "2021"
 path = "source/lib.rs"
 
 [dependencies]
-color-eyre = "^0.6.2"
-duplicate = "^0.4.1"
+duplicate = "^1.0.0"
 lazy_static = "^1.4.0"
-regex = "^1.6.0"
-scraper = "^0.13.0"
+regex = "^1.8.4"
+scraper = "^0.16.0"
+thiserror = "1.0.40"
 
 [dev-dependencies]
-insta = "^1.21.0"
+insta = "^1.29.0"
