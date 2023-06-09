@@ -1,6 +1,6 @@
 //! Parsing for `/~<group>`.
 
-use {color_eyre::Result, scraper::Html};
+use scraper::Html;
 
 use crate::{
   regexes::GROUP_SUBSCRIBERS_RE,
@@ -11,6 +11,7 @@ use crate::{
   utilities::{
     extract_anchor_values, parse_regex_match, select_first_element_text,
   },
+  ParseError,
 };
 
 /// A group's information.
@@ -44,37 +45,37 @@ pub struct GroupWikiLink {
 
 impl Group {
   /// Parses a [`Group`] from a [`scraper::Html`] tree.
-  pub fn from_html(html: &Html) -> Result<Self> {
+  pub fn from_html(html: &Html) -> Result<Self, ParseError> {
     let description =
       select_first_element_text(html.root_element(), &GROUP_DESCRIPTION);
 
-    let name =
-      select_first_element_text(html.root_element(), &GROUP_NAME).unwrap();
+    let name = select_first_element_text(html.root_element(), &GROUP_NAME)
+      .ok_or(ParseError::MissingExpectedHtml)?;
 
     let subscribers = parse_regex_match(
       GROUP_SUBSCRIBERS_RE
         .captures_iter(
           &select_first_element_text(html.root_element(), &GROUP_SUBSCRIBERS)
-            .unwrap(),
+            .ok_or(ParseError::MissingExpectedHtml)?,
         )
         .next()
-        .unwrap()
+        .ok_or(ParseError::MissingExpectedHtml)?
         .name("count"),
     )
-    .unwrap();
+    .ok_or(ParseError::MissingExpectedHtml)?;
 
     let sub_groups = html
       .select(&GROUP_SUB_GROUP_LINKS)
-      .map(|element| extract_anchor_values(element).0)
-      .collect();
+      .map(|element| Ok(extract_anchor_values(element)?.0))
+      .collect::<Result<_, _>>()?;
 
     let wiki_links = html
       .select(&GROUP_WIKI_LINKS)
       .map(|element| {
-        let (name, url) = extract_anchor_values(element);
-        GroupWikiLink { name, url }
+        let (name, url) = extract_anchor_values(element)?;
+        Ok(GroupWikiLink { name, url })
       })
-      .collect();
+      .collect::<Result<_, _>>()?;
 
     Ok(Self {
       description,

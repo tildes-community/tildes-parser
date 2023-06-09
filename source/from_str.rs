@@ -2,9 +2,9 @@
 
 use std::str::FromStr;
 
-use {color_eyre::eyre::Error, duplicate::duplicate_item, scraper::Html};
+use {duplicate::duplicate_item, scraper::Html};
 
-use crate::{Group, GroupList};
+use crate::{Group, GroupList, ParseError};
 
 #[duplicate_item(
   _Struct;
@@ -12,7 +12,7 @@ use crate::{Group, GroupList};
   [GroupList];
 )]
 impl FromStr for _Struct {
-  type Err = Error;
+  type Err = ParseError;
 
   fn from_str(s: &str) -> Result<Self, Self::Err> {
     let html = Html::parse_document(s);

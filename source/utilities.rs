@@ -7,17 +7,23 @@ use {
   scraper::{ElementRef, Selector},
 };
 
-use crate::regexes::DUPLICATE_WHITESPACE_RE;
+use crate::{regexes::DUPLICATE_WHITESPACE_RE, ParseError};
 
 /// Shorthand to extract the text and `href` values from an anchor element.
-pub fn extract_anchor_values(anchor: ElementRef) -> (String, String) {
+pub fn extract_anchor_values(
+  anchor: ElementRef,
+) -> Result<(String, String), ParseError> {
   let name = DUPLICATE_WHITESPACE_RE
     .replace_all(&anchor.text().collect::<String>(), " ")
     .trim()
     .to_string();
-  let href = anchor.value().attr("href").unwrap().to_string();
+  let href = anchor
+    .value()
+    .attr("href")
+    .ok_or(ParseError::MissingExpectedHtml)?
+    .to_string();
 
-  (name, href)
+  Ok((name, href))
 }
 
 /// Shorthand to parse a [`regex::Match`] with [`std::str::FromStr`].

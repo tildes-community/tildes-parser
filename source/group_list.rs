@@ -1,11 +1,12 @@
 //! Parsing for [`/groups`](https://tildes.net/groups).
 
-use {color_eyre::Result, scraper::Html};
+use scraper::Html;
 
 use crate::{
   regexes::{DUPLICATE_WHITESPACE_RE, GROUP_LIST_ACTIVITY_RE},
   selectors::{GROUP_LINK, GROUP_LIST_ACTIVITY, GROUP_LIST_DESCRIPTION},
   utilities::{parse_regex_match, select_first_element_text, selector},
+  ParseError,
 };
 
 /// The group list from the [`/groups`](https://tildes.net/groups) page.
@@ -34,7 +35,7 @@ pub struct GroupListSummary {
 
 impl GroupList {
   /// Parses a [`GroupList`] from a [`scraper::Html`] tree.
-  pub fn from_html(html: &Html) -> Result<Self> {
+  pub fn from_html(html: &Html) -> Result<Self, ParseError> {
     let summaries = html
       .select(&selector(".group-list li"))
       .map(|parent| {
@@ -54,17 +55,18 @@ impl GroupList {
             .unwrap_or_default()
         };
 
-        GroupListSummary {
+        Ok(GroupListSummary {
           comment_activity: activity_counts.0,
           description: select_first_element_text(
             parent,
             &GROUP_LIST_DESCRIPTION,
           ),
-          name: select_first_element_text(parent, &GROUP_LINK).unwrap(),
+          name: select_first_element_text(parent, &GROUP_LINK)
+            .ok_or(ParseError::MissingExpectedHtml)?,
           topic_activity: activity_counts.1,
-        }
+        })
       })
-      .collect();
+      .collect::<Result<_, _>>()?;
 
     Ok(Self { summaries })
   }
