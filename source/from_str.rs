@@ -4,12 +4,13 @@ use std::str::FromStr;
 
 use {duplicate::duplicate_item, scraper::Html};
 
-use crate::{Group, GroupList, ParseError};
+use crate::{Group, GroupList, ParseError, Topic};
 
 #[duplicate_item(
   _Struct;
   [Group];
   [GroupList];
+  [Topic];
 )]
 impl FromStr for _Struct {
   type Err = ParseError;

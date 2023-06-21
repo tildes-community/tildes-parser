@@ -28,4 +28,28 @@ lazy_static! {
 
   /// Selector for group wiki links.
   pub static ref GROUP_WIKI_LINKS: Selector = selector(r#"#sidebar [href*="/wiki/"]"#);
+
+  /// Selector for the topic comment count.
+  pub static ref TOPIC_COMMENT_COUNT: Selector = selector(".topic-comments-header h2");
+
+  /// Selector for the topic full byline.
+  pub static ref TOPIC_FULL_BYLINE: Selector = selector(".topic-full-byline");
+
+  /// Selector for a link topic's content.
+  pub static ref TOPIC_FULL_LINK: Selector = selector(".topic-full-link a");
+
+  /// Selector for the topic tag elements.
+  pub static ref TOPIC_FULL_TAGS: Selector = selector(".topic-full-tags a");
+
+  /// Selector for a text topic's content.
+  pub static ref TOPIC_FULL_TEXT: Selector = selector(".topic-full-text");
+
+  /// Selector for the main topic `<article>`.
+  pub static ref TOPIC_MAIN_ARTICLE: Selector = selector("main > .topic-full");
+
+  /// Selector for a topic toast warning.
+  pub static ref TOPIC_TOAST_WARNING: Selector = selector(".toast.toast-warning");
+
+  /// Selector for the topic vote count.
+  pub static ref TOPIC_VOTE_COUNT: Selector = selector(".topic-voting-votes");
 }
