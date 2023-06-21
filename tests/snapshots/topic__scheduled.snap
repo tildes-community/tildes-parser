@@ -1,0 +1,18 @@
+---
+source: tests/topic.rs
+expression: topic
+---
+Topic {
+    author: Scheduled,
+    comment_total: 100,
+    content: Text(
+        "<p>Scheduled Topic Text</p>",
+    ),
+    id: "789",
+    is_locked: false,
+    is_official: false,
+    tags: [
+        "recurring.weekly",
+    ],
+    vote_count: 50,
+}

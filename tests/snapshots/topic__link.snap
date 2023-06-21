@@ -1,0 +1,22 @@
+---
+source: tests/topic.rs
+expression: topic
+---
+Topic {
+    author: Name(
+        "AnotherUser",
+    ),
+    comment_total: 30,
+    content: Link(
+        "https://tildes.net/~test",
+    ),
+    id: "456",
+    is_locked: false,
+    is_official: false,
+    tags: [
+        "four",
+        "five",
+        "six",
+    ],
+    vote_count: 10,
+}

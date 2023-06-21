@@ -1,0 +1,22 @@
+---
+source: tests/topic.rs
+expression: topic
+---
+Topic {
+    author: Name(
+        "User",
+    ),
+    comment_total: 15,
+    content: Text(
+        "<p>Topic Text</p>",
+    ),
+    id: "123",
+    is_locked: true,
+    is_official: false,
+    tags: [
+        "one",
+        "two",
+        "three",
+    ],
+    vote_count: 5,
+}

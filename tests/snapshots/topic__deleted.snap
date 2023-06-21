@@ -1,0 +1,14 @@
+---
+source: tests/topic.rs
+expression: topic
+---
+Topic {
+    author: Unknown,
+    comment_total: 2,
+    content: Unknown,
+    id: "666",
+    is_locked: false,
+    is_official: false,
+    tags: [],
+    vote_count: 0,
+}
