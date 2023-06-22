@@ -10,6 +10,7 @@ Topic {
     content: Link(
         "https://tildes.net/~test",
     ),
+    group: "~group",
     id: "456",
     is_locked: false,
     is_official: false,

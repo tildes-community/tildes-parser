@@ -6,6 +6,7 @@ Topic {
     author: Unknown,
     comment_total: 2,
     content: Unknown,
+    group: "~group",
     id: "666",
     is_locked: false,
     is_official: false,

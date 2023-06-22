@@ -29,6 +29,9 @@ lazy_static! {
   /// Selector for group wiki links.
   pub static ref GROUP_WIKI_LINKS: Selector = selector(r#"#sidebar [href*="/wiki/"]"#);
 
+  /// Selector for the site header context.
+  pub static ref SITE_HEADER_CONTEXT: Selector = selector(".site-header-context");
+
   /// Selector for the topic comment count.
   pub static ref TOPIC_COMMENT_COUNT: Selector = selector(".topic-comments-header h2");
 

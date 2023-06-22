@@ -10,6 +10,7 @@ Topic {
     content: Text(
         "<p>Topic Text</p>",
     ),
+    group: "~group",
     id: "123",
     is_locked: true,
     is_official: false,

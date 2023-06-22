@@ -8,6 +8,7 @@ Topic {
     content: Text(
         "<p>Scheduled Topic Text</p>",
     ),
+    group: "~group.recurring",
     id: "789",
     is_locked: false,
     is_official: false,

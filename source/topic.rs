@@ -5,8 +5,9 @@ use scraper::Html;
 use crate::{
   regexes::DUPLICATE_WHITESPACE_RE,
   selectors::{
-    TOPIC_COMMENT_COUNT, TOPIC_FULL_BYLINE, TOPIC_FULL_LINK, TOPIC_FULL_TAGS,
-    TOPIC_FULL_TEXT, TOPIC_MAIN_ARTICLE, TOPIC_TOAST_WARNING, TOPIC_VOTE_COUNT,
+    SITE_HEADER_CONTEXT, TOPIC_COMMENT_COUNT, TOPIC_FULL_BYLINE,
+    TOPIC_FULL_LINK, TOPIC_FULL_TAGS, TOPIC_FULL_TEXT, TOPIC_MAIN_ARTICLE,
+    TOPIC_TOAST_WARNING, TOPIC_VOTE_COUNT,
   },
   utilities::select_first_element_text,
   ParseError,
@@ -24,6 +25,9 @@ pub struct Topic {
 
   /// The content of the topic.
   pub content: TopicContent,
+
+  /// The group the topic was posted in, with a leading tilde character.
+  pub group: String,
 
   /// The unique ID of the topic.
   pub id: String,
@@ -132,6 +136,20 @@ impl Topic {
       TopicContent::Unknown
     };
 
+    let group = DUPLICATE_WHITESPACE_RE
+      .replace_all(
+        html
+          .select(&SITE_HEADER_CONTEXT)
+          .next()
+          .ok_or(ParseError::MissingExpectedHtml)?
+          .text()
+          .collect::<String>()
+          .trim(),
+        "",
+      )
+      .to_string();
+    assert!(group.starts_with("~"));
+
     let id = topic_article_element
       .value()
       .id()
@@ -158,6 +176,7 @@ impl Topic {
       author,
       comment_total,
       content,
+      group,
       id,
       is_locked,
       is_official: false, // TODO: Implement this once it can be done.
