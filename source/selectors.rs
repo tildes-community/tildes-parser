@@ -32,6 +32,9 @@ lazy_static! {
   /// Selector for the site header context.
   pub static ref SITE_HEADER_CONTEXT: Selector = selector(".site-header-context");
 
+  /// Selector for `<time>` elements that have a `datetime` attribute.
+  pub static ref TIME_WITH_DATETIME: Selector = selector("time[datetime]");
+
   /// Selector for the topic comment count.
   pub static ref TOPIC_COMMENT_COUNT: Selector = selector(".topic-comments-header h2");
 

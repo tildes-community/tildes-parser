@@ -10,6 +10,7 @@ Topic {
     id: "666",
     is_locked: false,
     is_official: false,
+    posted_date: 2018-04-26T21:22:47+00:00,
     tags: [],
     vote_count: 0,
 }

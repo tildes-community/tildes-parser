@@ -14,6 +14,7 @@ Topic {
     id: "123",
     is_locked: true,
     is_official: false,
+    posted_date: 2022-12-16T17:26:03+00:00,
     tags: [
         "one",
         "two",

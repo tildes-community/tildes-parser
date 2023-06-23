@@ -11,6 +11,7 @@ edition = "2021"
 path = "source/lib.rs"
 
 [dependencies]
+chrono = "0.4.26"
 duplicate = "^1.0.0"
 lazy_static = "^1.4.0"
 regex = "^1.8.4"

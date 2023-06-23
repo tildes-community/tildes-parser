@@ -1,13 +1,16 @@
 //! Parsing for `/~<group>/<topic-id>`.
 
-use scraper::Html;
+use {
+  chrono::{DateTime, FixedOffset},
+  scraper::Html,
+};
 
 use crate::{
   regexes::DUPLICATE_WHITESPACE_RE,
   selectors::{
-    SITE_HEADER_CONTEXT, TOPIC_COMMENT_COUNT, TOPIC_FULL_BYLINE,
-    TOPIC_FULL_LINK, TOPIC_FULL_TAGS, TOPIC_FULL_TEXT, TOPIC_MAIN_ARTICLE,
-    TOPIC_TOAST_WARNING, TOPIC_VOTE_COUNT,
+    SITE_HEADER_CONTEXT, TIME_WITH_DATETIME, TOPIC_COMMENT_COUNT,
+    TOPIC_FULL_BYLINE, TOPIC_FULL_LINK, TOPIC_FULL_TAGS, TOPIC_FULL_TEXT,
+    TOPIC_MAIN_ARTICLE, TOPIC_TOAST_WARNING, TOPIC_VOTE_COUNT,
   },
   utilities::select_first_element_text,
   ParseError,
@@ -41,6 +44,9 @@ pub struct Topic {
   /// have any indicator of being marked as official. The only place it's shown
   /// is in the topic listing. See #787 in the Tildes issue tracker.
   pub is_official: bool,
+
+  /// The date the topic was posted.
+  pub posted_date: DateTime<FixedOffset>,
 
   /// All tags applied to the topic.
   pub tags: Vec<String>,
@@ -161,6 +167,14 @@ impl Topic {
         .map(|toast| toast.contains("This topic is locked."))
         .unwrap_or_default();
 
+    let posted_date = topic_article_element
+      .select(&TOPIC_FULL_BYLINE)
+      .next()
+      .and_then(|byline| byline.select(&TIME_WITH_DATETIME).next())
+      .and_then(|time| time.value().attr("datetime"))
+      .and_then(|datetime| DateTime::parse_from_rfc3339(datetime).ok())
+      .ok_or(ParseError::MissingExpectedHtml)?;
+
     let tags = topic_article_element
       .select(&TOPIC_FULL_TAGS)
       .map(|tag| tag.text().collect::<String>())
@@ -180,6 +194,7 @@ impl Topic {
       id,
       is_locked,
       is_official: false, // TODO: Implement this once it can be done.
+      posted_date,
       tags,
       vote_count,
     };
