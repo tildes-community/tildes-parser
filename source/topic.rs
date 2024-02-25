@@ -64,7 +64,7 @@ pub enum TopicAuthor {
   /// The topic was posted by Tildes itself.
   ///
   /// Technically the user for this is [Tildes](https://tildes.net/user/tildes)
-  /// but in the topic it says "Automatically posted <date>" where the username
+  /// but in the topic it says "Automatically posted &lt;date&gt;" where the username
   /// normally goes, so may as well special-case it here too.
   Scheduled,
 
@@ -110,7 +110,7 @@ impl Topic {
     } else {
       TopicAuthor::Name(
         topic_byline
-          .split(" ")
+          .split(' ')
           .last()
           .ok_or(ParseError::MissingExpectedHtml)?
           .to_string(),
@@ -121,7 +121,7 @@ impl Topic {
       select_first_element_text(topic_article_element, &TOPIC_COMMENT_COUNT)
     {
       comment_total
-        .split(" ")
+        .split(' ')
         .next()
         .map(|count| count.parse::<i32>())
         .ok_or(ParseError::MissingExpectedHtml)?
@@ -154,7 +154,7 @@ impl Topic {
         "",
       )
       .to_string();
-    assert!(group.starts_with("~"));
+    assert!(group.starts_with('~'));
 
     let id = topic_article_element
       .value()
