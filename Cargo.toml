@@ -11,12 +11,12 @@ edition = "2021"
 path = "source/lib.rs"
 
 [dependencies]
-chrono = "0.4.26"
+chrono = "0.4.34"
 duplicate = "^1.0.0"
 lazy_static = "^1.4.0"
-regex = "^1.8.4"
-scraper = "^0.16.0"
-thiserror = "1.0.40"
+regex = "^1.10.3"
+scraper = "^0.18.1"
+thiserror = "1.0.57"
 
 [dev-dependencies]
-insta = "^1.29.0"
+insta = "^1.35.1"
